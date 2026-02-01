@@ -1,6 +1,6 @@
 @use 'variables' as *;
 
-// 4. СЕТКА ПИНОВ
+//=== СЕТКА ПИНОВ ===
 .chess-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -13,7 +13,7 @@
     }
 }
 
-// 5. КАРТОЧКА ПИНА
+//=== КАРТОЧКА ПИНА ===
 .pin-card {
     display: flex;
     flex-direction: column;
@@ -61,7 +61,7 @@
         }
     }
 
-    // ТЕГИ
+    //=== ТЕГИ ===
     .pin-tags {
         display: flex;
         flex-wrap: wrap;
@@ -100,7 +100,7 @@
         }
     }
 
-    // ЮЗЕР ИНФО
+    //=== ЮЗЕР ИНФО ===
     .pin-user {
         display: flex;
         align-items: center;
@@ -126,7 +126,7 @@
     }
 }
 
-// 6. ВЫПАДАЮЩИЙ СПИСОК ДОСОК
+//=== ВЫПАДАЮЩИЙ СПИСОК ДОСОК ===
 .dropdown-menu {
     border-radius: 15px;
     border: none;
