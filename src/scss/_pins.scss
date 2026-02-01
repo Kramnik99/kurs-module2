@@ -33,31 +33,84 @@
             transition: transform 0.3s ease;
         }
 
+        //=== МЕНЮ ===
+        .pin-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            z-index: 5;
+            backdrop-filter: blur(2px);
+
+            &.is-active {
+                display: flex;
+            }
+        }
+
+        //=== КРУГ С ИКОНКОЙ ===
         .play-btn {
             position: absolute;
             bottom: 15px;
             right: 15px;
             background-color: #fff;
-            width: 35px;
-            height: 35px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: $play-blue;
-            font-size: 0.8rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            z-index: 2;
-            transition: transform 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            transition: all 0.2s ease;
 
             &:hover {
                 transform: scale(1.1);
+                background-color: #f8f9fa;
+            }
+
+            svg {
+                pointer-events: none; 
             }
         }
 
         &:hover img {
             transform: scale(1.05);
-            filter: brightness(0.9);
+        }
+    }
+
+    //=== КНОПКИ ВНУТРИ МЕНЮ ===
+    .btn-action {
+        width: 85%;
+        padding: 10px;
+        border: none;
+        border-radius: 24px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &.btn-add {
+            background-color: $pinterest-red;
+            color: white;
+            &:hover { background-color: darken($pinterest-red, 10%); }
+        }
+
+        &.btn-hide, &.btn-report {
+            background-color: #efefef;
+            color: #111;
+            &:hover { background-color: #e2e2e2; }
+        }
+
+        &:active {
+            transform: scale(0.95);
         }
     }
 
@@ -66,7 +119,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        padding: 10px 5px;
+        padding: 12px 5px 6px;
 
         .tag {
             display: inline-block;
@@ -74,28 +127,16 @@
             font-weight: 700;
             color: #444;
             background-color: #e9ecef;
-            padding: 2px 8px;
+            padding: 2px 10px;
             border-radius: 20px;
-            text-decoration: none;
             border: 1px solid #dee2e6;
-            transition: all 0.2s ease-in-out;
             cursor: pointer;
 
-            &::before {
-                content: "#";
-                margin-right: 2px;
-            }
-
+            &::before { content: "#"; }
             &:hover {
                 background-color: $play-blue;
-                color: #ffffff;
+                color: #fff;
                 border-color: $play-blue;
-                transform: scale(1.05);
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-                &::before {
-                    color: #ffffff;
-                }
             }
         }
     }
@@ -105,41 +146,19 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 8px 8px 12px 8px;
+        padding: 8px 5px;
 
         .avatar {
-            width:  32px;
+            width: 32px;
             height: 32px;
             border-radius: 50%;
             background: $avatar-gradient;
-            flex-shrink: 0;
         }
 
         .username {
             font-size: 0.85rem;
             font-weight: 600;
             color: $gray-dark;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    }
-}
-
-//=== ВЫПАДАЮЩИЙ СПИСОК ДОСОК ===
-.dropdown-menu {
-    border-radius: 15px;
-    border: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-
-    .dropdown-item {
-        border-radius: 8px;
-        padding: 8px 20px;
-
-        &:hover {
-            background-color: #444;
-            color: white;
         }
     }
 }

@@ -1,8 +1,8 @@
-@use './variables' as *;
-@use './libs.scss';
-@use './scaffold.scss';
-@use './pins.scss';
-@use './board.scss';
+@use 'variables' as *;
+@use 'libs.scss';
+@use 'scaffold.scss';
+@use 'pins.scss';
+@use 'board.scss';
 
 //=== ШАПКА И ПОИСК ===
 .navbar {

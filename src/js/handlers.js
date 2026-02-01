@@ -1,13 +1,21 @@
 export function createPinCard(pin) {
-    const { src, userName, tags } = pin;
+
+    const { src, userName, tags, id } = pin;
 
     const pinTags = tags || [];
     const tagsHtml = pinTags.map(tag => `<span class="tag">${tag}</span>`).join('');
 
     return `
-        <div class="pin-card">
+        <div class="pin-card" data-id="${id}">
             <div class="pin-image">
-                <img src="${src}" alt="pin">
+                <img src="${src}" alt="pin" loading="lazy">
+                
+                <div class="pin-overlay">
+                    <button class="btn-action btn-add" data-id="${id}">Добавить на доску</button>
+                    <button class="btn-action btn-hide" data-id="${id}">Скрыть</button>
+                    <button class="btn-action btn-report" data-id="${id}">Пожаловаться</button>
+                </div>
+
                 <div class="play-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2" viewBox="0 0 16 16">
                         <path d="M3.5 2a.5.5 0 0 0-.5.5v12a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-12a.5.5 0 0 0-.5-.5H12a.5.5 0 0 1 0-1h.5A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-12A1.5 1.5 0 0 1 3.5 1H4a.5.5 0 0 1 0 1z" />
@@ -15,7 +23,9 @@ export function createPinCard(pin) {
                     </svg>
                 </div>
             </div>
+
             <div class="pin-tags">${tagsHtml}</div>
+
             <div class="pin-user">
                 <div class="avatar"></div>
                 <span class="username">${userName}</span>
@@ -26,5 +36,5 @@ export function createPinCard(pin) {
 
 export function handleSubmitForm(event) {
     event.preventDefault();
-    console.log('Форма отправлена!');
+    console.log('Поиск/форма отправлены!');
 }
