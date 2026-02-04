@@ -10,7 +10,7 @@ const DEFAULT_BOARDS = {
 };
 
 let savedData = JSON.parse(localStorage.getItem('pinterest_data')) || DEFAULT_BOARDS;
-let allPins = []; 
+let allPins = [];
 let currentBoardFilter = null;
 
 function syncStorage() {
@@ -42,8 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchPins();
 
     const grid = document.querySelector('.chess-grid');
+
     const boardModalElement = document.getElementById('boardModal');
     let boardModal = boardModalElement ? new Modal(boardModalElement) : null;
+
+    // === МОДАЛКА РЭПОРТА ===
+    const reportModalElement = document.getElementById('reportModal');
+    let reportModal = reportModalElement ? new Modal(reportModalElement) : null;
 
     //=== ФИЛЬТРАЦИЯ И СБРОС ===
     const boardDropdownMenu = document.querySelector('.dropdown-menu');
@@ -56,18 +61,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentBoardFilter = filterItem.dataset.board;
                 const savedIds = savedData[currentBoardFilter].map(id => String(id));
                 const filtered = allPins.filter(pin => savedIds.includes(String(pin.id)));
-                
+
                 renderPins(filtered);
                 document.getElementById('boardDropdown').innerText = filterItem.innerText;
             }
 
             if (resetItem) {
-                currentBoardFilter = null; 
+                currentBoardFilter = null;
                 renderPins(allPins);
-                
+
                 savedData = { 'board1': [], 'board2': [], 'board3': [] };
                 syncStorage();
-                
+
                 document.getElementById('boardDropdown').innerText = 'Выбрать доску';
                 alert('Фильтр сброшен, все доски очищены!');
             }
@@ -79,14 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
-            const searchedPins = allPins.filter(pin => 
+            const searchedPins = allPins.filter(pin =>
                 pin.tags.some(tag => tag.toLowerCase().includes(query))
             );
             renderPins(searchedPins);
         });
     }
 
-    //==ДЕЛЕГИРОВАНИЕ КЛИКОВ В СЕТКЕ ===
+    //== УПРАВЛЕНИЕ ПИНАМИ ===
     if (grid) {
         grid.addEventListener('click', (event) => {
             const target = event.target;
@@ -100,12 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (target.classList.contains('btn-hide')) {
                 const pinId = String(target.dataset.id);
-                
+
                 if (currentBoardFilter) {
                     savedData[currentBoardFilter] = savedData[currentBoardFilter].filter(id => id !== pinId);
                     syncStorage();
                 }
-                
+
                 target.closest('.pin-card')?.remove();
             }
 
@@ -115,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (target.classList.contains('btn-report')) {
-                alert(`Жалоба на пин №${target.dataset.id} отправлена.`);
+                if (reportModal) reportModal.show();
             }
         });
     }
@@ -126,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const boardName = e.target.dataset.board;
             if (currentPinId && boardName) {
                 const idStr = String(currentPinId);
-                
+
                 if (!savedData[boardName].includes(idStr)) {
                     savedData[boardName].push(idStr);
                     syncStorage();
@@ -136,6 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 boardModal.hide();
             }
+        });
+    });
+
+    //=== ОБРАБОТКА ОТПРАВКИ РЭПОРТА ===
+    document.querySelectorAll('.send-report').forEach(btn => {
+        btn.addEventListener('click', () => {
+            alert('Жалоба отправлена!');
+            if (reportModal) reportModal.hide();
         });
     });
 

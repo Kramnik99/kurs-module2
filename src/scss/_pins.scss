@@ -77,7 +77,7 @@
             }
 
             svg {
-                pointer-events: none; 
+                pointer-events: none;
             }
         }
 
@@ -100,13 +100,20 @@
         &.btn-add {
             background-color: $pinterest-red;
             color: white;
-            &:hover { background-color: darken($pinterest-red, 10%); }
+
+            &:hover {
+                background-color: darken($pinterest-red, 10%);
+            }
         }
 
-        &.btn-hide, &.btn-report {
+        &.btn-hide,
+        &.btn-report {
             background-color: #efefef;
             color: #111;
-            &:hover { background-color: #e2e2e2; }
+
+            &:hover {
+                background-color: #e2e2e2;
+            }
         }
 
         &:active {
@@ -132,7 +139,10 @@
             border: 1px solid #dee2e6;
             cursor: pointer;
 
-            &::before { content: "#"; }
+            &::before {
+                content: "#";
+            }
+
             &:hover {
                 background-color: $play-blue;
                 color: #fff;
